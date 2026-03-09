@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="gtstudio_ai_agent" resource="default" engine="innodb" comment="AiAgent">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id Column"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Code Column"/>
+        <column xsi:type="text" name="description" nullable="false" comment="Description Column"/>
+        <column xsi:type="text" name="background" nullable="false" comment="Background Column"/>
+        <column xsi:type="text" name="steps" nullable="false" comment="Steps Column"/>
+        <column xsi:type="text" name="output" nullable="false" comment="Output Column"/>
+        <column xsi:type="varchar" name="tools" nullable="false" length="255" comment="Tools Column"/>
+        <column xsi:type="text" name="additional_configs" nullable="false" comment="Additional Configs Column"/>
+        <!-- Scheduling fields -->
+        <column xsi:type="smallint" name="cron_enabled" nullable="false" default="0" comment="Cron Enabled"/>
+        <column xsi:type="varchar" name="cron_expression" nullable="true" length="100" comment="Cron Expression (e.g. 0 * * * *)"/>
+        <column xsi:type="text" name="cron_input" nullable="true" comment="Cron Input Template"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="GTSTUDIO_AI_AGENT_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+    <table name="gtstudio_ai_tools" resource="default" engine="innodb" comment="AiTools">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id Column"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Code Column"/>
+        <column xsi:type="varchar" name="description" nullable="false" length="255" comment="Description Column"/>
+        <column xsi:type="text" name="properties" nullable="true" comment="Properties Column"/>
+        <column xsi:type="text" name="additional_configs" nullable="false" comment="Additional Configs Column"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="GTSTUDIO_AI_TOOLS_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+    <table name="gtstudio_ai_agent_execution_log" resource="default" engine="innodb"
+           comment="AiAgent Execution Log">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <column xsi:type="int" name="agent_entity_id" padding="10" unsigned="true" nullable="true"
+                comment="Agent Entity Id"/>
+        <column xsi:type="varchar" name="agent_code" nullable="false" length="255" comment="Agent Code"/>
+        <column xsi:type="text" name="input" nullable="true" comment="Input Message"/>
+        <column xsi:type="mediumtext" name="output" nullable="true" comment="Output Message"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="20" default="pending"
+                comment="Status: pending|running|success|error"/>
+        <column xsi:type="int" name="tokens_input" nullable="false" default="0" comment="Input Tokens Used"/>
+        <column xsi:type="int" name="tokens_output" nullable="false" default="0" comment="Output Tokens Used"/>
+        <column xsi:type="text" name="error_message" nullable="true" comment="Error Message"/>
+        <column xsi:type="varchar" name="triggered_by" nullable="false" length="20" default="manual"
+                comment="Triggered By: manual|cron"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="GTSTUDIO_AI_AGENT_EXEC_LOG_AGENT_CODE" indexType="btree">
+            <column name="agent_code"/>
+        </index>
+        <index referenceId="GTSTUDIO_AI_AGENT_EXEC_LOG_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="GTSTUDIO_AI_AGENT_EXEC_LOG_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/ai-tools/get-list" method="GET">
+        <service class="Gtstudio\AiAgents\Api\GetAiToolsListInterface" method="execute"/>
+        <resources>
+            <resource ref="Gtstudio_AiAgents::management"/>
+        </resources>
+    </route>
+    <route url="/V1/ai-agent/get-list" method="GET">
+        <service class="Gtstudio\AiAgents\Api\GetAiAgentListInterface" method="execute"/>
+        <resources>
+            <resource ref="Gtstudio_AiAgents::management"/>
+        </resources>
+    </route>
+    <route url="/V1/ai-agent/run" method="POST">
+        <service class="Gtstudio\AiAgents\Api\AgentRunInterface" method="run"/>
+        <resources>
+            <resource ref="Gtstudio_AiAgents::management"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,62 @@
+{
+  "gtstudio_ai_tools": {
+    "column": {
+      "entity_id": true,
+      "code": true,
+      "description": true,
+      "properties": true,
+      "additional_configs": true
+    },
+    "index": {
+      "GTSTUDIO_AI_TOOLS_ENTITY_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  },
+  "gtstudio_ai_agent": {
+    "column": {
+      "entity_id": true,
+      "code": true,
+      "description": true,
+      "background": true,
+      "steps": true,
+      "output": true,
+      "tools": true,
+      "additional_configs": true,
+      "cron_enabled": true,
+      "cron_expression": true,
+      "cron_input": true
+    },
+    "index": {
+      "GTSTUDIO_AI_AGENT_ENTITY_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  },
+  "gtstudio_ai_agent_execution_log": {
+    "column": {
+      "entity_id": true,
+      "agent_entity_id": true,
+      "agent_code": true,
+      "input": true,
+      "output": true,
+      "status": true,
+      "tokens_input": true,
+      "tokens_output": true,
+      "error_message": true,
+      "triggered_by": true,
+      "created_at": true,
+      "updated_at": true
+    },
+    "index": {
+      "GTSTUDIO_AI_AGENT_EXEC_LOG_AGENT_CODE": true,
+      "GTSTUDIO_AI_AGENT_EXEC_LOG_STATUS": true,
+      "GTSTUDIO_AI_AGENT_EXEC_LOG_CREATED_AT": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  }
+}

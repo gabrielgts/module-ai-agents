@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <!-- Check every minute which cron-enabled agents are due and execute them -->
+        <job name="aiagents_cron_runner"
+             instance="Gtstudio\AiAgents\Model\Cron\AgentCronRunner"
+             method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+
+        <!-- Daily cleanup of old execution log entries -->
+        <job name="aiagents_execution_log_pruner"
+             instance="Gtstudio\AiAgents\Model\Cron\ExecutionLogPruner"
+             method="execute">
+            <schedule>0 3 * * *</schedule>
+        </job>
+    </group>
+</config>

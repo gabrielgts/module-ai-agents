@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">ai_agent_form.ai_agent_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Ai Agent</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <namespace>ai_agent_form</namespace>
+        <dataScope>data.general</dataScope>
+        <deps>
+            <dep>ai_agent_form.ai_agent_form_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="save" class="Gtstudio\AiAgents\Block\Form\AiAgent\Save"/>
+            <button name="back" class="Gtstudio\AiAgents\Block\Form\AiAgent\Back"/>
+            <button name="delete" class="Gtstudio\AiAgents\Block\Form\AiAgent\Delete"/>
+            <button name="run_now" class="Gtstudio\AiAgents\Block\Form\AiAgent\RunNow"/>
+        </buttons>
+    </settings>
+    <dataSource name="ai_agent_form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="ai_agent/aiagent/save"/>
+        </settings>
+        <dataProvider class="Gtstudio\AiAgents\Ui\DataProvider\AiAgentDataProvider" name="ai_agent_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- General fieldset -->
+    <fieldset name="general" sortOrder="10">
+        <settings>
+            <label translate="true">General</label>
+        </settings>
+        <field name="entity_id" sortOrder="0" formElement="hidden">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Entity ID</label>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+        <field name="code" sortOrder="00" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">code</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Code</label>
+                <dataScope>code</dataScope>
+                <notice translate="true">Unique machine-readable identifier for this agent (e.g. customer_support). Used to retrieve and instantiate it programmatically via AgentMapper.</notice>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="description" sortOrder="10" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">description</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Description</label>
+                <dataScope>description</dataScope>
+                <notice translate="true">Short human-readable summary of the agent's role. Used for admin reference only; not sent to the LLM.</notice>
+            </settings>
+        </field>
+        <field name="background" sortOrder="20" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">background</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Background</label>
+                <dataScope>background</dataScope>
+                <notice translate="true">The agent's identity and purpose. Each line becomes a separate directive under "IDENTITY AND PURPOSE" in the system prompt (NeuronAI SystemPrompt::$background).</notice>
+            </settings>
+        </field>
+        <field name="steps" sortOrder="30" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">steps</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Steps</label>
+                <dataScope>steps</dataScope>
+                <notice translate="true">Step-by-step internal reasoning the agent follows. Each line becomes a step under "INTERNAL ASSISTANT STEPS" in the system prompt (NeuronAI SystemPrompt::$steps).</notice>
+            </settings>
+        </field>
+        <field name="output" sortOrder="40" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">output</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Output Instructions</label>
+                <dataScope>output</dataScope>
+                <notice translate="true">Format rules and constraints for the agent's responses. Each line becomes a rule under "OUTPUT INSTRUCTIONS" in the system prompt (NeuronAI SystemPrompt::$output).</notice>
+            </settings>
+        </field>
+        <field name="tools" sortOrder="50" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">tools</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Tools</label>
+                <dataScope>tools</dataScope>
+                <notice translate="true">Actions available to this agent. Selected tools are resolved to NeuronAI Tool instances and attached to the agent at runtime via AgentMapper.</notice>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Gtstudio\AiAgents\Model\Source\AiTools"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+        <field name="additional_configs" sortOrder="60" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">additional_configs</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Additional Configs</label>
+                <dataScope>additional_configs</dataScope>
+                <notice translate="true">Optional JSON object for advanced agent configuration (e.g. custom chat-history settings, max-tries overrides).</notice>
+            </settings>
+        </field>
+    </fieldset>
+
+    <!-- Scheduling fieldset -->
+    <fieldset name="scheduling" sortOrder="20">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Cron Scheduling</label>
+        </settings>
+        <field name="cron_enabled" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">cron_enabled</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Cron Execution</label>
+                <dataScope>cron_enabled</dataScope>
+                <notice translate="true">When enabled the agent will be executed automatically according to the cron expression below.</notice>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="cron_expression" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">cron_expression</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Cron Expression</label>
+                <dataScope>cron_expression</dataScope>
+                <notice translate="true">Standard 5-field cron expression (minute hour day month weekday). Examples: "0 * * * *" = every hour, "0 0 * * *" = daily at midnight, "*/15 * * * *" = every 15 minutes.</notice>
+            </settings>
+        </field>
+        <field name="cron_input" sortOrder="30" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">cron_input</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Cron Input Template</label>
+                <dataScope>cron_input</dataScope>
+                <notice translate="true">Input message sent to the agent on each scheduled run. Supports tokens: {{date}}, {{datetime}}, {{timestamp}}, {{store_name}}, {{store_url}}.</notice>
+            </settings>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Gtstudio_AiConnector::gtstudio">
+
+                    <!-- Agents & Tools management — umbrella resource checked by all agent/tool controllers -->
+                    <resource id="Gtstudio_AiAgents::management" title="Agents &amp; Tools" sortOrder="20">
+                        <resource id="Gtstudio_AiAgents::tools"  title="Manage Tools"   sortOrder="10"/>
+                        <resource id="Gtstudio_AiAgents::agents" title="Manage Agents"  sortOrder="20"/>
+                    </resource>
+
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

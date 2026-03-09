@@ -1,0 +1,145 @@
+<?php
+/** @var \Gtstudio\AiAgents\Block\Adminhtml\AiAgent\RunNowModal $block */
+$entityId  = $block->getEntityId();
+$runNowUrl = $block->getRunNowUrl();
+
+if (!$entityId) {
+    return;
+}
+?>
+
+<div id="agent-run-now-modal" style="display:none;">
+    <div class="agent-run-input-section">
+        <label for="agent-run-input" class="label">
+            <strong><?= $block->escapeHtml(__('Input Message')) ?></strong>
+        </label>
+        <textarea id="agent-run-input"
+                  rows="5"
+                  style="width:100%;margin-top:8px;padding:8px;box-sizing:border-box;font-family:monospace;"
+                  placeholder="<?= $block->escapeHtmlAttr(__('Enter the message to send to the agent (leave blank for none)')) ?>"></textarea>
+        <p class="note" style="margin-top:4px;color:#666;">
+            <?= $block->escapeHtml(__("The agent's tools and system prompt are configured in the definition above.")) ?>
+        </p>
+    </div>
+
+    <div id="agent-run-status" style="display:none;margin-top:16px;">
+        <div id="agent-run-spinner" style="color:#666;display:none;">
+            <span id="agent-run-status-text"><?= $block->escapeHtml(__('Executing agent, please wait…')) ?></span>
+        </div>
+        <div id="agent-run-result" style="display:none;">
+            <h4 style="margin:8px 0 4px;"><?= $block->escapeHtml(__('Result')) ?></h4>
+            <pre id="agent-run-output"
+                 style="background:#f5f5f5;padding:12px;white-space:pre-wrap;word-break:break-word;
+                        max-height:300px;overflow:auto;border:1px solid #ddd;border-radius:3px;"></pre>
+            <p id="agent-run-tokens" style="margin:4px 0;color:#666;font-size:12px;"></p>
+        </div>
+        <div id="agent-run-error" style="display:none;color:#e22626;padding:8px;background:#fff0f0;border:1px solid #e22626;border-radius:3px;"></div>
+    </div>
+</div>
+
+<script>
+require([
+    'jquery',
+    'Magento_Ui/js/modal/modal',
+    'mage/translate'
+], function ($, modal, $t) {
+    'use strict';
+
+    var entityId  = <?= (int) $entityId ?>;
+    var runNowUrl = '<?= $block->escapeJs($runNowUrl) ?>';
+
+    var $modalEl = $('#agent-run-now-modal');
+
+    var modalInstance = modal({
+        type:    'popup',
+        title:   $t('Run Agent'),
+        buttons: [
+            {
+                text:  $t('Cancel'),
+                class: 'action-secondary',
+                click: function () { this.closeModal(); }
+            },
+            {
+                text:  $t('Execute'),
+                class: 'action-primary',
+                id:    'agent-run-execute-btn',
+                click: function () { runAgent(); }
+            }
+        ]
+    }, $modalEl);
+
+    function runAgent() {
+        var input = $('#agent-run-input').val();
+
+        setExecuting(true);
+        $('#agent-run-status').show();
+        $('#agent-run-result').hide();
+        $('#agent-run-error').hide();
+        $('#agent-run-spinner').show();
+
+        var frames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
+        var i = 0;
+        var spinner = setInterval(function () {
+            $('#agent-run-status-text').text(frames[i++ % frames.length] + ' ' + $t('Executing agent, please wait…'));
+        }, 120);
+
+        $.ajax({
+            url:      runNowUrl,
+            type:     'POST',
+            data: {
+                entity_id: entityId,
+                input:     input,
+                form_key:  window.FORM_KEY
+            },
+            dataType: 'json',
+            success: function (response) {
+                clearInterval(spinner);
+                $('#agent-run-spinner').hide();
+                setExecuting(false);
+
+                if (response.success) {
+                    $('#agent-run-output').text(response.output);
+                    $('#agent-run-tokens').text(
+                        $t('Tokens — input: %1 | output: %2 | total: %3')
+                            .replace('%1', response.tokens_input)
+                            .replace('%2', response.tokens_output)
+                            .replace('%3', response.tokens_input + response.tokens_output)
+                    );
+                    $('#agent-run-result').show();
+                } else {
+                    $('#agent-run-error').text(response.message || $t('Execution failed.')).show();
+                }
+            },
+            error: function (xhr) {
+                clearInterval(spinner);
+                $('#agent-run-spinner').hide();
+                setExecuting(false);
+
+                var msg = $t('Request failed. Please try again.');
+                try { msg = JSON.parse(xhr.responseText).message || msg; } catch (e) {}
+                $('#agent-run-error').text(msg).show();
+            }
+        });
+    }
+
+    function setExecuting(busy) {
+        $('#agent-run-execute-btn').prop('disabled', busy);
+        $('#agent-run-input').prop('disabled', busy);
+    }
+
+    function resetModal() {
+        $('#agent-run-input').val('').prop('disabled', false);
+        $('#agent-run-status').hide();
+        $('#agent-run-result').hide();
+        $('#agent-run-error').hide();
+        $('#agent-run-spinner').hide();
+        $('#agent-run-execute-btn').prop('disabled', false);
+    }
+
+    // Expose globally so the toolbar button's on_click can call it.
+    window.aiAgentRunNow = function () {
+        resetModal();
+        $modalEl.modal('openModal');
+    };
+});
+</script>

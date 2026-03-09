@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">ai_agent_listing.ai_agent_listing_data_source</item>
+            <item name="deps" xsi:type="string">ai_agent_listing.ai_agent_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New</label>
+            </button>
+        </buttons>
+        <spinner>ai_agent_listing_columns</spinner>
+        <deps>
+            <dep>ai_agent_listing.ai_agent_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="ai_agent_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Gtstudio_AiAgents::management</aclResource>
+        <dataProvider class="Gtstudio\AiAgents\Ui\DataProvider\AiAgentDataProvider" name="ai_agent_listing_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <columns name="ai_agent_listing_columns">
+        <column name="entity_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="code">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Code</label>
+            </settings>
+        </column>
+        <column name="description">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Description</label>
+            </settings>
+        </column>
+        <column name="background">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Background</label>
+            </settings>
+        </column>
+        <column name="steps">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Steps</label>
+            </settings>
+        </column>
+        <column name="output">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Output</label>
+            </settings>
+        </column>
+        <column name="tools">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Tools</label>
+            </settings>
+        </column>
+        <column name="additional_configs">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Additional Configs</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Gtstudio\AiAgents\Ui\Component\Listing\Column\AiAgentBlockActions">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

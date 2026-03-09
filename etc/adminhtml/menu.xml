@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- Agents & Tools submenu group -->
+        <add id="Gtstudio_AiAgents::management"
+             title="Agents &amp; Tools"
+             module="Gtstudio_AiAgents"
+             sortOrder="20"
+             parent="Gtstudio_AiConnector::gtstudio"
+             resource="Gtstudio_AiAgents::management"
+             translate="title"/>
+
+        <add id="Gtstudio_AiAgents::manageTools"
+             title="Tools"
+             module="Gtstudio_AiAgents"
+             sortOrder="10"
+             parent="Gtstudio_AiAgents::management"
+             action="ai_tools/aitools/index"
+             resource="Gtstudio_AiAgents::tools"
+             translate="title"/>
+
+        <add id="Gtstudio_AiAgents::manageAgents"
+             title="Agents"
+             module="Gtstudio_AiAgents"
+             sortOrder="20"
+             parent="Gtstudio_AiAgents::management"
+             action="ai_agent/aiagent/index"
+             resource="Gtstudio_AiAgents::agents"
+             translate="title"/>
+
+        <add id="Gtstudio_AiAgents::executionLog"
+             title="Execution Log"
+             module="Gtstudio_AiAgents"
+             sortOrder="30"
+             parent="Gtstudio_AiAgents::management"
+             action="ai_agent/aiagent/execution"
+             resource="Gtstudio_AiAgents::agents"
+             translate="title"/>
+    </menu>
+</config>

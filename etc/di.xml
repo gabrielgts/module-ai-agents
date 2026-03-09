@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gtstudio\AiAgents\Api\Data\AiToolsInterface" type="Gtstudio\AiAgents\Model\Data\AiToolsData"/>
+    <preference for="Gtstudio\AiAgents\Api\GetAiToolsListInterface"
+                type="Gtstudio\AiAgents\Query\AiTools\GetListQuery"/>
+    <preference for="Gtstudio\AiAgents\Api\SaveAiToolsInterface" type="Gtstudio\AiAgents\Command\AiTools\SaveCommand"/>
+    <preference for="Gtstudio\AiAgents\Api\DeleteAiToolsByIdInterface"
+                type="Gtstudio\AiAgents\Command\AiTools\DeleteByIdCommand"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiToolsSearchResultsInterface"
+                type="Gtstudio\AiAgents\Model\AiToolsSearchResults"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiToolsSearchResultsInterfaceFactory"
+                type="Gtstudio\AiAgents\Model\AiToolsSearchResultsFactory"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiToolsDataFactory"
+                type="Gtstudio\AiAgents\Model\Data\AiToolsDataFactory"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiAgentDataFactory"
+                type="Gtstudio\AiAgents\Model\Data\AiAgentDataFactory"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiAgentInterface" type="Gtstudio\AiAgents\Model\Data\AiAgentData"/>
+    <preference for="Gtstudio\AiAgents\Api\GetAiAgentListInterface"
+                type="Gtstudio\AiAgents\Query\AiAgent\GetListQuery"/>
+    <preference for="Gtstudio\AiAgents\Api\SaveAiAgentInterface" type="Gtstudio\AiAgents\Command\AiAgent\SaveCommand"/>
+    <preference for="Gtstudio\AiAgents\Api\DeleteAiAgentByIdInterface"
+                type="Gtstudio\AiAgents\Command\AiAgent\DeleteByIdCommand"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiAgentSearchResultsInterface"
+                type="Gtstudio\AiAgents\Model\AiAgentSearchResults"/>
+    <preference for="Gtstudio\AiAgents\Api\Data\AiAgentSearchResultsInterfaceFactory"
+                type="Gtstudio\AiAgents\Model\AiAgentSearchResultsFactory"/>
+    <preference for="Gtstudio\AiAgents\Api\GetAiAgentByCodeInterface"
+                type="Gtstudio\AiAgents\Query\AiAgent\GetByCodeQuery"/>
+    <preference for="Gtstudio\AiAgents\Api\AgentRunInterface"
+                type="Gtstudio\AiAgents\Model\AgentRunner"/>
+
+
+    <!--
+        MagentoAgent chat history: inject AgentChatHistory (a thin subclass of
+        InMemoryChatHistory with a fixed 4 000-token context window) as a
+        non-shared object so every MagentoAgentFactory::create() call gets its
+        own fresh history instance, preventing conversation bleed-over.
+
+        A concrete subclass is used instead of a virtual type to avoid the
+        TokenCounter::__set_state() serialization error triggered by Magento's
+        DI compiler when constructor arguments are passed to third-party classes.
+    -->
+    <type name="Gtstudio\AiAgents\Model\Agent\MagentoAgent">
+        <arguments>
+            <argument name="chatHistory" xsi:type="object" shared="false">
+                Gtstudio\AiAgents\Model\Chat\AgentChatHistory
+            </argument>
+        </arguments>
+    </type>
+
+    <!--
+        ToolExecutorPool: register ToolExecutorInterface implementation,
+        keyed by the tool's `code` value stored in the database.
+
+        Example:
+        <type name="Gtstudio\AiAgents\Model\Tool\ToolExecutorPool">
+            <arguments>
+                <argument name="executors" xsi:type="array">
+                    <item name="get_order_status" xsi:type="object">Vendor\Module\Model\Tool\GetOrderStatusExecutor</item>
+                </argument>
+            </arguments>
+        </type>
+    -->
+    <type name="Gtstudio\AiAgents\Model\Tool\ToolExecutorPool">
+        <arguments>
+            <argument name="executors" xsi:type="array"/>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="aiagents_validate_tools" xsi:type="object">
+                    Gtstudio\AiAgents\Console\Command\ValidateToolExecutorsCommand
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

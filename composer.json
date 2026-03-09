@@ -1,0 +1,26 @@
+{
+    "name": "gtstudio/module-ai-agents",
+    "version": "1.0.0",
+    "description": "Agent and tool registry for Magento 2. Provides admin CRUD for AI agents and tools, cron-based scheduled execution, and an execution log.",
+    "type": "magento2-module",
+    "license": "BUSL-1.1",
+    "authors": [
+        {
+            "name": "Gabriel Silveira",
+            "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": ">=2.4.4",
+        "gtstudio/module-aiconnector": ">=1.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Gtstudio\\AiAgents\\": ""
+        }
+    }
+}

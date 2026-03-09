@@ -1,0 +1,37 @@
+<?php
+
+namespace Gtstudio\AiAgents\Controller\Adminhtml\AiAgent;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\Model\View\Result\Page;
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Controller\ResultInterface;
+
+/**
+ * New action AiAgent controller.
+ */
+class NewAction extends Action implements HttpGetActionInterface
+{
+    /**
+     * Authorization level of a basic admin session.
+     *
+     * @see _isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'Gtstudio_AiAgents::management';
+
+    /**
+     * Create new AiAgent action.
+     *
+     * @return Page|ResultInterface
+     */
+    public function execute()
+    {
+        /** @var Page $resultPage */
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $resultPage->setActiveMenu('Gtstudio_AiAgents::management');
+        $resultPage->getConfig()->getTitle()->prepend(__('New AiAgent'));
+
+        return $resultPage;
+    }
+}
