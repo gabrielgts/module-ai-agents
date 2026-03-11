@@ -80,6 +80,11 @@
             </settings>
         </field>
         <dynamicRows name="properties" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="identificationProperty" xsi:type="string">record_id</item>
+                </item>
+            </argument>
             <settings>
                 <label translate="true">Properties</label>
                 <addButtonLabel translate="true">Add Property</addButtonLabel>

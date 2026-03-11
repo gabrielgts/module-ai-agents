@@ -100,19 +100,27 @@ class AiToolsDataProvider extends DataProvider
         if ($this->loadedData) {
             return $this->loadedData;
         }
-        $this->loadedData = parent::getData();
-        $itemsById = [];
 
-        foreach ($this->loadedData['items'] as $item) {
-            $itemsById[(int)$item[AiToolsInterface::ENTITY_ID]] = $item;
-        }
+        $rawData  = parent::getData();
+        $entityId = $this->request->getParam(AiToolsInterface::ENTITY_ID);
 
-        if ($id = $this->request->getParam(AiToolsInterface::ENTITY_ID)) {
-            $item = $itemsById[(int)$id];
+        if ($entityId) {
+            // Edit form: find the item and nest all fields under 'general' so
+            // they align with the form's dataScope="data.general".
+            $itemsById = [];
+            foreach ($rawData['items'] ?? [] as $item) {
+                $itemsById[(int)$item[AiToolsInterface::ENTITY_ID]] = $item;
+            }
+
+            $item = $itemsById[(int)$entityId] ?? [];
             $item[AiToolsInterface::PROPERTIES] = $this->decodeProperties(
                 $item[AiToolsInterface::PROPERTIES] ?? null
             );
-            $this->loadedData['entity'] = $item;
+
+            $this->loadedData = [(int)$entityId => ['general' => $item]];
+        } else {
+            // Listing grid: return the standard {totalRecords, items} structure.
+            $this->loadedData = $rawData;
         }
 
         return $this->loadedData;
@@ -120,6 +128,9 @@ class AiToolsDataProvider extends DataProvider
 
     /**
      * Decode JSON-encoded properties string into an array for the dynamic rows component.
+     *
+     * The `required` field is stored as a boolean in JSON but the checkbox
+     * valueMap expects the strings "1" / "0".
      *
      * @param string|null $properties
      * @return array
@@ -130,6 +141,22 @@ class AiToolsDataProvider extends DataProvider
             return [];
         }
         $decoded = json_decode($properties, true);
-        return is_array($decoded) ? $decoded : [];
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        return array_values(array_map(static function (array $prop, int $index): array {
+            $recordId = $prop['record_id'] ?? $index;
+
+            return [
+                'record_id'   => $recordId,
+                '_id'         => $recordId,
+                'name'        => $prop['name'] ?? '',
+                'type'        => $prop['type'] ?? '',
+                'description' => $prop['description'] ?? '',
+                'required'    => !empty($prop['required']) ? '1' : '0',
+                'position'    => $prop['position'] ?? $index,
+            ];
+        }, $decoded, array_keys($decoded)));
     }
 }
