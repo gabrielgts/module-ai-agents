@@ -2,6 +2,23 @@
 
 Agent and tool registry for Magento 2. Provides a full admin UI to define, store, and execute AI agents backed by `Gtstudio_AiConnector`.
 
+## Preview
+
+![AiAgents — creating an agent, attaching tools, and running it on-demand](docs/images/aiagents-preview.gif)
+
+## AI Studio Ecosystem
+
+Part of the **AI Studio** suite for Magento 2. See all modules:
+
+| Module | Repository | Description |
+|--------|-----------|-------------|
+| **Gtstudio_AiConnector** | [module-aiconnector](https://github.com/gabrielgts/module-aiconnector) | Core AI provider abstraction |
+| **Gtstudio_AiAgents** | *(this module)* | Agent & tool orchestration, cron scheduling, execution log |
+| **Gtstudio_AiWidgets** | [module-ai-widgets](https://github.com/gabrielgts/module-ai-widgets) | Floating admin chat widget + PageBuilder AI generator |
+| **Gtstudio_AiDataQuery** | [module-ai-data-query](https://github.com/gabrielgts/module-ai-data-query) | Natural-language store analytics (privacy-first) |
+| **Gtstudio_AiKnowledgeBase** | [module-ai-knowledge-base](https://github.com/gabrielgts/module-ai-knowledge-base) | Document upload & RAG retrieval for agents |
+| **Gtstudio_AiDashboard** | *(coming soon)* | AI-powered KPI dashboard with ML insights |
+
 ## What It Does
 
 - Admin CRUD for **Agents** — each agent has a system prompt (background, steps, output instructions), a list of tools it can call, and optional cron scheduling
@@ -20,10 +37,9 @@ Agent and tool registry for Magento 2. Provides a full admin UI to define, store
 ## Installation
 
 ```bash
+composer require gtstudio/module-ai-agents
 php bin/magento module:enable Gtstudio_AiAgents
 php bin/magento setup:upgrade
-php bin/magento setup:di:compile
-php bin/magento cache:flush
 ```
 
 ## Admin UI
