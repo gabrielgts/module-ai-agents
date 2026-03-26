@@ -23,8 +23,7 @@ class AiAgentDataMapper
      */
     public function __construct(
         AiAgentInterfaceFactory $entityDtoFactory
-    )
-    {
+    ) {
         $this->entityDtoFactory = $entityDtoFactory;
     }
 

@@ -13,6 +13,7 @@ interface DeleteAiToolsByIdInterface
 {
     /**
      * Delete AiTools.
+     *
      * @param int $entityId
      * @return void
      * @throws CouldNotDeleteException

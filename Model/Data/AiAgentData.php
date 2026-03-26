@@ -184,31 +184,64 @@ class AiAgentData extends DataObject implements AiAgentInterface
         $this->setData(self::ADDITIONAL_CONFIGS, $additionalConfigs);
     }
 
+    /**
+     * Get cron enabled flag.
+     *
+     * @return bool
+     */
     public function getCronEnabled(): bool
     {
         return (bool) $this->getData(self::CRON_ENABLED);
     }
 
+    /**
+     * Set cron enabled flag.
+     *
+     * @param bool $enabled
+     * @return void
+     */
     public function setCronEnabled(bool $enabled): void
     {
         $this->setData(self::CRON_ENABLED, (int) $enabled);
     }
 
+    /**
+     * Get cron expression.
+     *
+     * @return string|null
+     */
     public function getCronExpression(): ?string
     {
         return $this->getData(self::CRON_EXPRESSION);
     }
 
+    /**
+     * Set cron expression.
+     *
+     * @param string|null $expression
+     * @return void
+     */
     public function setCronExpression(?string $expression): void
     {
         $this->setData(self::CRON_EXPRESSION, $expression);
     }
 
+    /**
+     * Get cron input message template.
+     *
+     * @return string|null
+     */
     public function getCronInput(): ?string
     {
         return $this->getData(self::CRON_INPUT);
     }
 
+    /**
+     * Set cron input message template.
+     *
+     * @param string|null $input
+     * @return void
+     */
     public function setCronInput(?string $input): void
     {
         $this->setData(self::CRON_INPUT, $input);

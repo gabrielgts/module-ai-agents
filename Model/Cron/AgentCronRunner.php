@@ -21,6 +21,12 @@ use Psr\Log\LoggerInterface;
  */
 class AgentCronRunner
 {
+    /**
+     * @param AiAgentCollectionFactory $collectionFactory
+     * @param AgentExecutionService $executionService
+     * @param CronInputRenderer $inputRenderer
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         private readonly AiAgentCollectionFactory $collectionFactory,
         private readonly AgentExecutionService $executionService,
@@ -29,6 +35,11 @@ class AgentCronRunner
     ) {
     }
 
+    /**
+     * Execute all due cron-enabled agents.
+     *
+     * @return void
+     */
     public function execute(): void
     {
         /** @var AiAgentCollection $collection */
@@ -73,9 +84,14 @@ class AgentCronRunner
     }
 
     /**
-     * Lightweight cron expression checker.
+     * Check whether the cron expression is due for the given datetime.
+     *
      * Supports: * (wildcard), step (* /n), exact (n), range (n-m), list (n,m).
      * Five-field format: minute hour day month weekday.
+     *
+     * @param string $expression
+     * @param \DateTime $now
+     * @return bool
      */
     private function isDue(string $expression, \DateTime $now): bool
     {
@@ -94,6 +110,13 @@ class AgentCronRunner
             && $this->matchField($weekday, (int) $now->format('w'));
     }
 
+    /**
+     * Match a single cron field against the current value.
+     *
+     * @param string $field
+     * @param int $value
+     * @return bool
+     */
     private function matchField(string $field, int $value): bool
     {
         if ($field === '*') {

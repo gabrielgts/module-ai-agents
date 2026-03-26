@@ -14,6 +14,7 @@ interface GetAiAgentListInterface
 {
     /**
      * Get AiAgent list by search criteria.
+     *
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return \Gtstudio\AiAgents\Api\Data\AiAgentSearchResultsInterface
      */

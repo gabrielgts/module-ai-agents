@@ -40,8 +40,7 @@ class SaveCommand implements SaveAiAgentInterface
         LoggerInterface $logger,
         AiAgentModelFactory $modelFactory,
         AiAgentResource $resource
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
         $this->resource = $resource;

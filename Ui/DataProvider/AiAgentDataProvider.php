@@ -56,8 +56,7 @@ class AiAgentDataProvider extends DataProvider
         SearchResultFactory $searchResultFactory,
         array $meta = [],
         array $data = []
-    )
-    {
+    ) {
         parent::__construct(
             $name,
             $primaryFieldName,

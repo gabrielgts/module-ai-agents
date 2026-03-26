@@ -22,7 +22,7 @@ use Gtstudio\AiAgents\Api\ToolExecutorInterface;
 class ToolExecutorPool
 {
     /**
-     * @param array<string, ToolExecutorInterface> $executors Executors keyed by tool code.
+     * @param array $executors Executors keyed by tool code.
      */
     public function __construct(
         private readonly array $executors = []

@@ -55,8 +55,7 @@ class GetListQuery implements GetAiAgentListInterface
         AiAgentDataMapper $entityDataMapper,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         AiAgentSearchResultsInterfaceFactory $searchResultFactory
-    )
-    {
+    ) {
         $this->collectionProcessor = $collectionProcessor;
         $this->entityCollectionFactory = $entityCollectionFactory;
         $this->entityDataMapper = $entityDataMapper;

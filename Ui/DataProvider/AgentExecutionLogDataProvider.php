@@ -10,6 +10,14 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class AgentExecutionLogDataProvider extends AbstractDataProvider
 {
+    /**
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param AgentExecutionLogCollectionFactory $collectionFactory
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
         string $name,
         string $primaryFieldName,
@@ -22,6 +30,11 @@ class AgentExecutionLogDataProvider extends AbstractDataProvider
         $this->collection = $collectionFactory->create();
     }
 
+    /**
+     * Get all execution log data as array.
+     *
+     * @return array
+     */
     public function getData(): array
     {
         return $this->collection->toArray();

@@ -17,8 +17,14 @@ class AgentExecutionLogModel extends AbstractModel
     public const TRIGGERED_MANUAL = 'manual';
     public const TRIGGERED_CRON   = 'cron';
 
+    /** @var string */
     protected $_eventPrefix = 'gtstudio_ai_agent_execution_log';
 
+    /**
+     * Initialize resource model.
+     *
+     * @return void
+     */
     protected function _construct(): void
     {
         $this->_init(AgentExecutionLogResource::class);

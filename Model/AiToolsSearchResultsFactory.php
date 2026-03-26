@@ -34,4 +34,3 @@ class AiToolsSearchResultsFactory implements AiToolsSearchResultsInterfaceFactor
         return $this->objectManager->create(AiToolsSearchResults::class, $data);
     }
 }
-

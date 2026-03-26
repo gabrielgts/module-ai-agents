@@ -8,8 +8,14 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class AgentExecutionLogResource extends AbstractDb
 {
+    /** @var string */
     protected $_eventPrefix = 'gtstudio_ai_agent_execution_log_resource_model';
 
+    /**
+     * Initialize resource table and primary key.
+     *
+     * @return void
+     */
     protected function _construct(): void
     {
         $this->_init('gtstudio_ai_agent_execution_log', 'entity_id');

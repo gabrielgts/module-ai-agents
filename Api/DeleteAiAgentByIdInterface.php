@@ -13,6 +13,7 @@ interface DeleteAiAgentByIdInterface
 {
     /**
      * Delete AiAgent.
+     *
      * @param int $entityId
      * @return void
      * @throws CouldNotDeleteException

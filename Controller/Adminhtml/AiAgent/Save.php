@@ -52,8 +52,7 @@ class Save extends Action implements HttpPostActionInterface
         DataPersistorInterface $dataPersistor,
         SaveAiAgentInterface $saveCommand,
         AiAgentInterfaceFactory $entityDataFactory
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->dataPersistor = $dataPersistor;
         $this->saveCommand = $saveCommand;

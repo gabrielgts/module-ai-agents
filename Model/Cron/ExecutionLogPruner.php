@@ -17,6 +17,11 @@ class ExecutionLogPruner
     private const CONFIG_PATH = 'aiagents/execution/log_retention_days';
     private const DEFAULT_DAYS = 30;
 
+    /**
+     * @param AgentExecutionService $executionService
+     * @param ScopeConfigInterface $scopeConfig
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         private readonly AgentExecutionService $executionService,
         private readonly ScopeConfigInterface $scopeConfig,
@@ -24,6 +29,11 @@ class ExecutionLogPruner
     ) {
     }
 
+    /**
+     * Prune execution log entries older than the configured retention period.
+     *
+     * @return void
+     */
     public function execute(): void
     {
         $days = (int) ($this->scopeConfig->getValue(self::CONFIG_PATH) ?: self::DEFAULT_DAYS);

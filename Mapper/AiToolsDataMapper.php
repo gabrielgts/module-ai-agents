@@ -23,8 +23,7 @@ class AiToolsDataMapper
      */
     public function __construct(
         AiToolsInterfaceFactory $entityDtoFactory
-    )
-    {
+    ) {
         $this->entityDtoFactory = $entityDtoFactory;
     }
 

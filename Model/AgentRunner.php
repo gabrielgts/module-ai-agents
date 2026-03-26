@@ -16,6 +16,11 @@ use NeuronAI\Chat\Messages\UserMessage;
  */
 class AgentRunner implements AgentRunInterface
 {
+    /**
+     * @param GetAiAgentByCodeInterface $getAiAgentByCode
+     * @param AgentMapper $agentMapper
+     * @param ConfigProvider $configProvider
+     */
     public function __construct(
         private readonly GetAiAgentByCodeInterface $getAiAgentByCode,
         private readonly AgentMapper $agentMapper,

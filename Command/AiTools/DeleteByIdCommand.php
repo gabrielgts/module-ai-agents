@@ -41,8 +41,7 @@ class DeleteByIdCommand implements DeleteAiToolsByIdInterface
         LoggerInterface $logger,
         AiToolsModelFactory $modelFactory,
         AiToolsResource $resource
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
         $this->resource = $resource;
@@ -60,7 +59,8 @@ class DeleteByIdCommand implements DeleteAiToolsByIdInterface
 
             if (!$model->getData(AiToolsInterface::ENTITY_ID)) {
                 throw new NoSuchEntityException(
-                    __('Could not find AiTools with id: `%id`',
+                    __(
+                        'Could not find AiTools with id: `%id`',
                         [
                             'id' => $entityId
                         ]

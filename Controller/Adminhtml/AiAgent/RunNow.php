@@ -17,6 +17,12 @@ class RunNow extends Action implements HttpPostActionInterface
 {
     public const ADMIN_RESOURCE = 'Gtstudio_AiAgents::agents';
 
+    /**
+     * @param Context $context
+     * @param AgentExecutionService $executionService
+     * @param AiAgentCollectionFactory $collectionFactory
+     * @param JsonFactory $jsonFactory
+     */
     public function __construct(
         Context $context,
         private readonly AgentExecutionService $executionService,
@@ -26,6 +32,9 @@ class RunNow extends Action implements HttpPostActionInterface
         parent::__construct($context);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function execute()
     {
         $result   = $this->jsonFactory->create();

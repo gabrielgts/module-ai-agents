@@ -14,9 +14,9 @@ class AiToolsSearchResults extends SearchResults implements AiToolsSearchResults
      * Set items list.
      *
      * @param array $items
-     *
      * @return AiToolsSearchResultsInterface
      */
+    // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
     public function setItems(array $items): AiToolsSearchResultsInterface
     {
         return parent::setItems($items);
@@ -27,6 +27,7 @@ class AiToolsSearchResults extends SearchResults implements AiToolsSearchResults
      *
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
     public function getItems(): array
     {
         return parent::getItems();

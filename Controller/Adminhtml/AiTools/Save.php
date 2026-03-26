@@ -60,8 +60,7 @@ class Save extends Action implements HttpPostActionInterface
         SaveAiToolsInterface $saveCommand,
         AiToolsInterfaceFactory $entityDataFactory,
         Json $json
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->dataPersistor = $dataPersistor;
         $this->saveCommand = $saveCommand;
@@ -81,7 +80,9 @@ class Save extends Action implements HttpPostActionInterface
 
         try {
             $generalData = $params['general'];
-            if (isset($generalData[AiToolsInterface::PROPERTIES]) && is_array($generalData[AiToolsInterface::PROPERTIES])) {
+            if (isset($generalData[AiToolsInterface::PROPERTIES])
+                && is_array($generalData[AiToolsInterface::PROPERTIES])
+            ) {
                 $generalData[AiToolsInterface::PROPERTIES] = $this->json->serialize(
                     array_values($generalData[AiToolsInterface::PROPERTIES])
                 );

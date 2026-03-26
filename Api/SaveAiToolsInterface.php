@@ -14,6 +14,7 @@ interface SaveAiToolsInterface
 {
     /**
      * Save AiTools.
+     *
      * @param \Gtstudio\AiAgents\Api\Data\AiToolsInterface $aiTools
      * @return int
      * @throws CouldNotSaveException

@@ -19,6 +19,9 @@ use Psr\Log\LoggerInterface;
  */
 class ToolPropertyMapper
 {
+    /**
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         private readonly LoggerInterface $logger
     ) {
@@ -35,7 +38,7 @@ class ToolPropertyMapper
      * `properties` keys. Using ToolProperty for those types omits required fields
      * and causes a 400 Bad Request from the API.
      *
-     * @param array<string, mixed> $propertyData Raw property data from the form.
+     * @param array $propertyData Raw property data from the form.
      * @return ToolPropertyInterface
      */
     public function map(array $propertyData): ToolPropertyInterface

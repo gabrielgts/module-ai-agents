@@ -15,6 +15,10 @@ use Magento\Framework\Exception\NoSuchEntityException;
  */
 class GetByCodeQuery implements GetAiAgentByCodeInterface
 {
+    /**
+     * @param AiAgentCollectionFactory $collectionFactory
+     * @param AiAgentInterfaceFactory $entityDtoFactory
+     */
     public function __construct(
         private readonly AiAgentCollectionFactory $collectionFactory,
         private readonly AiAgentInterfaceFactory $entityDtoFactory

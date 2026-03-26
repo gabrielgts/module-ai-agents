@@ -22,6 +22,10 @@ use NeuronAI\Tools\Tool;
  */
 class ToolMapper
 {
+    /**
+     * @param ToolPropertyMapper $propertyMapper
+     * @param ToolExecutorPool $executorPool
+     */
     public function __construct(
         private readonly ToolPropertyMapper $propertyMapper,
         private readonly ToolExecutorPool $executorPool

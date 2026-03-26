@@ -41,8 +41,7 @@ class DeleteByIdCommand implements DeleteAiAgentByIdInterface
         LoggerInterface $logger,
         AiAgentModelFactory $modelFactory,
         AiAgentResource $resource
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
         $this->resource = $resource;
@@ -60,7 +59,8 @@ class DeleteByIdCommand implements DeleteAiAgentByIdInterface
 
             if (!$model->getData(AiAgentInterface::ENTITY_ID)) {
                 throw new NoSuchEntityException(
-                    __('Could not find AiAgent with id: `%id`',
+                    __(
+                        'Could not find AiAgent with id: `%id`',
                         [
                             'id' => $entityId
                         ]

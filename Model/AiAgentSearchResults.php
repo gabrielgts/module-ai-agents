@@ -14,9 +14,9 @@ class AiAgentSearchResults extends SearchResults implements AiAgentSearchResults
      * Set items list.
      *
      * @param array $items
-     *
      * @return AiAgentSearchResultsInterface
      */
+    // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
     public function setItems(array $items): AiAgentSearchResultsInterface
     {
         return parent::setItems($items);
@@ -27,6 +27,7 @@ class AiAgentSearchResults extends SearchResults implements AiAgentSearchResults
      *
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
     public function getItems(): array
     {
         return parent::getItems();

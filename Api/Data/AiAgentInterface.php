@@ -148,33 +148,45 @@ interface AiAgentInterface
     public function setAdditionalConfigs(?string $additionalConfigs): void;
 
     /**
+     * Get cron enabled flag.
+     *
      * @return bool
      */
     public function getCronEnabled(): bool;
 
     /**
+     * Set cron enabled flag.
+     *
      * @param bool $enabled
      * @return void
      */
     public function setCronEnabled(bool $enabled): void;
 
     /**
+     * Get cron expression.
+     *
      * @return string|null
      */
     public function getCronExpression(): ?string;
 
     /**
+     * Set cron expression.
+     *
      * @param string|null $expression
      * @return void
      */
     public function setCronExpression(?string $expression): void;
 
     /**
+     * Get cron input message template.
+     *
      * @return string|null
      */
     public function getCronInput(): ?string;
 
     /**
+     * Set cron input message template.
+     *
      * @param string|null $input
      * @return void
      */

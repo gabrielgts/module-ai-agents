@@ -8,6 +8,11 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class PropertyType implements OptionSourceInterface
 {
+    /**
+     * Return option array for property type select.
+     *
+     * @return array
+     */
     public function toOptionArray(): array
     {
         return [

@@ -10,12 +10,21 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class AiTools implements OptionSourceInterface
 {
+    /**
+     * @param GetAiToolsListInterface $getAiToolsList
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     */
     public function __construct(
         private GetAiToolsListInterface $getAiToolsList,
         private SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
     }
 
+    /**
+     * Return option array of all AI tools.
+     *
+     * @return array
+     */
     public function toOptionArray(): array
     {
         $searchCriteria = $this->searchCriteriaBuilder->create();

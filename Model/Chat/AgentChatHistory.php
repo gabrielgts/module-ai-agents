@@ -17,6 +17,9 @@ class AgentChatHistory extends InMemoryChatHistory
 {
     private const CONTEXT_WINDOW = 4000;
 
+    /**
+     * Initialize with fixed context window.
+     */
     public function __construct()
     {
         parent::__construct(self::CONTEXT_WINDOW);

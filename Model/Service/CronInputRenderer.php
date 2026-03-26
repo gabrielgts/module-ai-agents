@@ -19,12 +19,22 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class CronInputRenderer
 {
+    /**
+     * @param TimezoneInterface $timezone
+     * @param StoreManagerInterface $storeManager
+     */
     public function __construct(
         private readonly TimezoneInterface $timezone,
         private readonly StoreManagerInterface $storeManager
     ) {
     }
 
+    /**
+     * Render the cron input template with current context variables.
+     *
+     * @param string $template
+     * @return string
+     */
     public function render(string $template): string
     {
         $now = $this->timezone->date();

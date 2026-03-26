@@ -15,22 +15,13 @@ use Magento\Framework\Exception\NoSuchEntityException;
 interface AgentRunInterface
 {
     /**
-     * Run an agent identified by its code and return the assistant's reply
-     * along with token usage metadata.
+     * Run an agent by code and return the assistant reply with token usage metadata.
      *
-     * @param string $code    Machine-readable agent code (e.g. "customer_support").
+     * @param string $code Machine-readable agent code (e.g. "customer_support").
      * @param string $message The user message to send to the agent.
-     * @return array{
-     *     content: string,
-     *     tokens: int,
-     *     input_tokens: int,
-     *     output_tokens: int,
-     *     model: string,
-     *     provider: string
-     * }
-     *
+     * @return array
      * @throws NoSuchEntityException When no agent with the given code exists.
-     * @throws AiConnectorException  When the AI provider cannot be resolved or the request fails.
+     * @throws AiConnectorException When the AI provider cannot be resolved or the request fails.
      */
     public function run(string $code, string $message): array;
 }

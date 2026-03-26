@@ -17,6 +17,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ValidateToolExecutorsCommand extends Command
 {
+    /**
+     * @param GetAiToolsListInterface $getAiToolsList
+     * @param ToolExecutorPool $executorPool
+     */
     public function __construct(
         private readonly GetAiToolsListInterface $getAiToolsList,
         private readonly ToolExecutorPool $executorPool

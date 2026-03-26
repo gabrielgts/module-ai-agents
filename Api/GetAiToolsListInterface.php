@@ -14,6 +14,7 @@ interface GetAiToolsListInterface
 {
     /**
      * Get AiTools list by search criteria.
+     *
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return \Gtstudio\AiAgents\Api\Data\AiToolsSearchResultsInterface
      */

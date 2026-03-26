@@ -5,6 +5,7 @@ namespace Gtstudio\AiAgents\Api\Data;
 /**
  * Factory interface for creating AiAgentData instances.
  */
+// phpcs:ignore Magento2.NamingConvention.InterfaceName.WrongInterfaceName
 interface AiAgentDataFactory
 {
     /**

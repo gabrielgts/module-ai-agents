@@ -13,6 +13,10 @@ class Execution extends Action implements HttpGetActionInterface
 {
     public const ADMIN_RESOURCE = 'Gtstudio_AiAgents::agents';
 
+    /**
+     * @param Context $context
+     * @param PageFactory $pageFactory
+     */
     public function __construct(
         Context $context,
         private readonly PageFactory $pageFactory
@@ -20,6 +24,9 @@ class Execution extends Action implements HttpGetActionInterface
         parent::__construct($context);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function execute()
     {
         $page = $this->pageFactory->create();

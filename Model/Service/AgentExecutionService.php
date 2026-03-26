@@ -16,6 +16,13 @@ use Psr\Log\LoggerInterface;
  */
 class AgentExecutionService
 {
+    /**
+     * @param AgentRunInterface $agentRunner
+     * @param GetAiAgentByCodeInterface $getAiAgentByCode
+     * @param AgentExecutionLogModelFactory $logFactory
+     * @param AgentExecutionLogResource $logResource
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         private readonly AgentRunInterface $agentRunner,
         private readonly GetAiAgentByCodeInterface $getAiAgentByCode,
@@ -91,9 +98,10 @@ class AgentExecutionService
     }
 
     /**
-     * Delete execution log entries older than $days days.
+     * Delete execution log entries older than the given number of days.
      *
-     * @return int  Number of rows deleted.
+     * @param int $days
+     * @return int Number of rows deleted.
      */
     public function pruneOldLogs(int $days): int
     {

@@ -18,7 +18,7 @@ interface ToolExecutorInterface
      * The $inputs array is keyed by the property names declared on the tool
      * entity, matching exactly what the LLM resolved for each parameter.
      *
-     * @param array<string, mixed> $inputs Named inputs provided by the LLM.
+     * @param array $inputs Named inputs provided by the LLM.
      * @return mixed The tool result, which will be serialised and sent back to the LLM.
      */
     public function execute(array $inputs): mixed;

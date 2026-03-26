@@ -55,8 +55,7 @@ class GetListQuery implements GetAiToolsListInterface
         AiToolsDataMapper $entityDataMapper,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         AiToolsSearchResultsInterfaceFactory $searchResultFactory
-    )
-    {
+    ) {
         $this->collectionProcessor = $collectionProcessor;
         $this->entityCollectionFactory = $entityCollectionFactory;
         $this->entityDataMapper = $entityDataMapper;
