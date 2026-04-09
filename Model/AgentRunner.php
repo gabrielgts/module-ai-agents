@@ -36,14 +36,14 @@ class AgentRunner implements AgentRunInterface
         $agentEntity = $this->getAiAgentByCode->execute($code);
         $agent = $this->agentMapper->map($agentEntity);
 
-        $response = $agent->chat(new UserMessage($message));
+        $message = $agent->chat(new UserMessage($message))->getMessage();
 
-        $usage = $response->getUsage();
+        $usage = $message->getUsage();
         $inputTokens  = $usage?->inputTokens  ?? 0;
         $outputTokens = $usage?->outputTokens ?? 0;
 
         return [
-            'content'       => (string) $response->getContent(),
+            'content'       => (string) $message->getContent(),
             'tokens'        => $inputTokens + $outputTokens,
             'input_tokens'  => $inputTokens,
             'output_tokens' => $outputTokens,

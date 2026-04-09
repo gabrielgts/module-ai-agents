@@ -15,7 +15,7 @@ use Gtstudio\AiConnector\Model\Exception\AiConnectorException;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Serialize\Serializer\Json;
-use NeuronAI\SystemPrompt;
+use NeuronAI\Agent\SystemPrompt;
 
 /**
  * Maps an AiAgentInterface entity to a fully-configured MagentoAgent.

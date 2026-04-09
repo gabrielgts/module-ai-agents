@@ -29,8 +29,8 @@ class MagentoAgent extends Agent
     /**
      * @param ChatHistoryInterface $chatHistory Injected by DI; defaults to InMemoryChatHistory.
      */
-    public function __construct(ChatHistoryInterface $chatHistory)
+    public function __construct(public ChatHistoryInterface $chatHistory)
     {
-        $this->chatHistory = $chatHistory;
+        parent::__construct();
     }
 }
