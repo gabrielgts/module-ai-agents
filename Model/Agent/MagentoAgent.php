@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gtstudio\AiAgents\Model\Agent;
 
-use NeuronAI\Agent;
+use NeuronAI\Agent\Agent;
 use NeuronAI\Chat\History\ChatHistoryInterface;
 
 /**
